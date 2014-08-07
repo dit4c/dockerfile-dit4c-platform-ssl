@@ -40,7 +40,7 @@ http {
       }
       
       # in case you want to run with self-signed cert in test env
-      location /public-keys {
+      location ~* ^/(public-keys|waiting)$ {
         proxy_pass http://dit4c-highcommand:9000;
         proxy_set_header Host $http_host;
         proxy_set_header Upgrade $http_upgrade;
