@@ -31,6 +31,11 @@ http {
 
     index   index.html index.htm;
 
+    map $http_upgrade $connection_upgrade {
+      default upgrade;
+      ''      close;
+    }
+
     server {
       listen 80;
       server_name  _ {{domain}} *.{{domain}};
@@ -45,6 +50,8 @@ http {
         proxy_set_header Host $http_host;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
       }
     }
 
@@ -60,12 +67,9 @@ http {
         proxy_set_header Host $http_host;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
       }
-    }
-
-    map $http_upgrade $connection_upgrade {
-        default upgrade;
-        ''      close;
     }
 
     server {
@@ -81,6 +85,8 @@ http {
         proxy_set_header Host $http_host;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
         add_header Cache-Control must-revalidate;
       }
 
