@@ -32,6 +32,9 @@ http {
     # Do not use SSLv3 - POODLE vulnerability
     ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 
+    gzip on;
+    gzip_types text/html text/css application/javascript application/json;
+
     index   index.html index.htm;
 
     map $http_upgrade $connection_upgrade {
