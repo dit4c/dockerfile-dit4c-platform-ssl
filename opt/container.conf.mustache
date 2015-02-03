@@ -1,0 +1,15 @@
+upstream vhost_backend_{{domain_underscored}} {
+  {{#servers}}
+  server {{.}};
+  {{/servers}}
+}
+
+server {
+  listen       *:443 ssl spdy;
+  server_name  {{domain}};
+
+  location / {
+    proxy_set_header "X-Server-Name" "{{name}}";
+    proxy_pass {{protocol}}://vhost_backend_{{domain_underscored}};
+  }
+}
