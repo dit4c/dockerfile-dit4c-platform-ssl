@@ -7,6 +7,9 @@ ENV DIT4C_DOMAIN "dit4c.metadata.net"
 # Runner must mount a volume containing server.key & server.crt
 VOLUME "/etc/ssl"
 
+# Nginx cache shouldn't form part of the image
+VOLUME "/var/cache/nginx"
+
 # Install Nginx and remove existing configs
 RUN yum install -y nginx && rm -f /etc/nginx/nginx.conf /etc/nginx/conf.d/*
 
