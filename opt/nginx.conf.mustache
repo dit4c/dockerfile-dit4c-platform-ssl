@@ -72,8 +72,12 @@ http {
     server_name  _;
 
     location / {
-      # Redirect to server wait page
-      return 302 $scheme://{{domain}}/waiting/$scheme/$http_host$request_uri;
+      # Redirect to server wait page (unless that would cause a redirect loop)
+      if ($http_host != "{{domain}}") {
+        return 302 $scheme://{{domain}}/waiting/$scheme/$http_host$request_uri;
+      }
+      # Otherwise service is unavailable
+      return 503;
     }
   }
 }
