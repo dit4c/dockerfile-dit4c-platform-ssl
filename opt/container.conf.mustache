@@ -20,6 +20,7 @@ server {
     proxy_http_version 1.1;
     proxy_read_timeout 1d; # Allow websockets to idle
     proxy_cache main;
+    proxy_cache_lock on;
     proxy_set_header Accept-Encoding "gzip"; # Force gzip for cache
     proxy_ignore_headers Vary; # pseudo-safe, given Accept is in cache key
     add_header X-Proxy-Cache $upstream_cache_status;
