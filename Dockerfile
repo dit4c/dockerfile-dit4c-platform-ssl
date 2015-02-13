@@ -10,13 +10,8 @@ VOLUME "/etc/ssl"
 # Nginx cache shouldn't form part of the image
 VOLUME "/var/cache/nginx"
 
-# Copy Nginx signing key over
-ADD /etc/yum.repos.d/nginx.repo /etc/yum.repos.d/nginx.repo
-ADD /nginx_signing.key /nginx_signing.key
-
 # Install Nginx and remove existing configs
-RUN rpm --import /nginx_signing.key && \
-  yum install -y nginx && rm -f /etc/nginx/nginx.conf /etc/nginx/conf.d/*
+RUN yum install -y nginx && rm -f /etc/nginx/nginx.conf /etc/nginx/conf.d/*
 
 # Container vhost configs
 VOLUME "/etc/nginx/conf.d"
