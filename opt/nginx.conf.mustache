@@ -1,4 +1,3 @@
-user  nginx;
 worker_processes  1;
 daemon off;
 
@@ -57,7 +56,7 @@ http {
   ssl_certificate_key   /etc/ssl/server.key;
 
   server {
-    listen 80;
+    listen       *:8080;
     server_name  _;
 
     location / {
@@ -68,7 +67,7 @@ http {
   include /etc/nginx/conf.d/*.conf;
 
   server {
-    listen       *:443 ssl spdy;
+    listen       *:8443 ssl spdy;
     server_name  _;
 
     location / {

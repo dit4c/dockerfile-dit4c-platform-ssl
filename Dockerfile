@@ -29,7 +29,13 @@ RUN git clone https://github.com/dit4c/nginx-etcd-vhosts.git /opt/nginx-etcd-vho
 ADD /etc /etc
 ADD /opt /opt
 
-RUN chmod +x /opt/*.sh
+RUN chmod +x /opt/*.sh && \
+  touch /etc/nginx/nginx.conf && \
+  chown -R nginx /etc/nginx/nginx.conf /etc/nginx/conf.d /run /var/log /var/cache/nginx
+
+VOLUME /var/logs
+USER nginx
+EXPOSE 8080 8443
 
 # We need to template
 CMD ["/opt/run.sh"]
