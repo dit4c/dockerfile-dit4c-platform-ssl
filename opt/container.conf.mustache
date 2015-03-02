@@ -5,7 +5,7 @@ upstream vhost_backend_{{domain_underscored}} {
 }
 
 server {
-  listen       *:443 ssl spdy;
+  listen       *:8443 ssl spdy;
   server_name  {{domain}};
 
   location / {
