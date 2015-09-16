@@ -43,6 +43,7 @@ http {
 
   proxy_cache_path /var/cache/nginx/main keys_zone=main:128m;
   proxy_cache_key "$scheme$host$request_uri $http_accept";
+  proxy_buffering off; # Necessary for large SSE messages
 
   index   index.html index.htm;
 
